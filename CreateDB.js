@@ -10,12 +10,12 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  connection.query("CREATE DATABASE IF NOT EXISTS test_database_node", function (err, result) {
+  connection.query("CREATE DATABASE IF NOT EXISTS users", function (err, result) {
     if (err) throw err;
     console.log("Database created");
 
   });
-  var sql = "CREATE TABLE IF NOT EXISTS customers (name VARCHAR(255), address VARCHAR(255))";
+  var sql = "CREATE TABLE IF NOT EXISTS USER (ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL, EMAIL TEXT, LAST_CHECK_IN INT NOT NULL, LAST_EMAIL_SENT INT NOT NULL, NOTIFY_LIST TEXT, MESSAGE TEXT)";
   connection.query(sql, function(err, result){
   	if (err) throw err;
   	console.log('TABLE CREATED');
