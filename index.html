@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>It loads</title>
+</head>
+<body>
+<script src="https://js.stripe.com/v3/"></script>
+<h1>Ha-ha! I work with Nodejs. (and Stripe, maybe)</h1>
+
+<form action="/charge" method="post" id="payment-form">
+	<div class="form-row">
+		<label for="card-element"></label>
+		<div id="card-element">
+		</div>
+		<div id="card-errors"></div>
+	</div>
+	<button>Submit Payment</button>
+</form>
+
+
+
+<script type="text/javascript">
+	var stripe = Stripe('pk_test_BCZtyl4FgCb0X8QofYfirEwr');
+	var elements = stripe.elements();
+
+	var card = elements.create('card');
+	card.mount('#card-element');
+	card.addEventListener('change', function(event) {
+		var displayError = document.getElementById('card-errors');
+		if(event.error)
+			displayError.textContent = event.error.message;
+		else
+			displayError.textContent = '';
+
+	});
+
+	var form = document.getElementById('payment-form');
+	form.addEventListener('submit', function(event) {
+		event.preventDefault();
+
+		stripe.createToken(card).then(function(result) {
+			if (result.error) {
+				var error = document.getElementById('card-errors');
+				error.textContent = result.error.message;
+			} else {
+				stripeTokenHandler(result.token);
+			}
+		})
+	});
+	function stripeTokenHandler(token) {
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+
+		form.submit();
+		console.log('transaction went through');
+	}
+</script>
+</body>
+</html>

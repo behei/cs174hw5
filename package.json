@@ -1,0 +1,23 @@
+{
+  "name": "hmr_team",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behei/cs174hw5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/behei/cs174hw5/issues"
+  },
+  "homepage": "https://github.com/behei/cs174hw5#readme",
+  "dependencies": {
+    "mysql": "^2.5.4",
+    "express": "^4.10.6"
+  }
+}
